@@ -1,12 +1,11 @@
-
 export interface Task {
-  todos: [todos],
+  todos: Todo[],
   total: number,
   // skip: number,
   // limit: number
 }
 
-export interface todos{
+export interface Todo{
   id: number,
   todo: string,
   completed: boolean,
