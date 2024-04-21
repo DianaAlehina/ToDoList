@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { routes } from '../app.routes';
 
 @Component({
   selector: 'app-authorization',
@@ -8,7 +9,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   templateUrl: './authorization.component.html',
-  styleUrl: './authorization.component.scss'
+  styleUrl: './authorization.component.css'
 })
 
 export class AuthorizationComponent implements OnInit{
@@ -21,6 +22,10 @@ export class AuthorizationComponent implements OnInit{
 
   ngOnInit() {
   }
+
+  // const navigateToRegister = () => {
+  //   routes.push("/register");
+  // }
 
   onSubmit(){
     // login and password заполнены, пытаемся авторизоваться
@@ -43,18 +48,24 @@ export class AuthorizationComponent implements OnInit{
           expiresInMins: 60, // optional, defaults to 60
         })
       })
-        .then(response => response.json())
-        .then((data) => {
-          if (data.error) {
-            alert(data.error);
-          } else {
-            localStorage.setItem("token", data.token);
-            // Redirect to the product list page
+        .then(res => res.json())
+        .then((res) => {
+          if (res?.message) {
+            alert('Login or password entered incorrectly!')
+          } else if (res.token) {
+            localStorage.setItem("token", res.token);
+            console.log(`You are authorized as ${this.login} with password ${this.password}`)
+            console.log(res)
+
+            // saveToken(res.token).then(() => {
+            //   router.push("/list");
+            // });
           }
         })
-        .then(json => console.log(json))
+        .catch((error) => {
+          console.error('Error during authentication', error);
+        })
 
-      console.log(`You are authorized as ${this.login} with password ${this.password}`)
       return;
     }
     alert('Login and password are required fields!!!')
