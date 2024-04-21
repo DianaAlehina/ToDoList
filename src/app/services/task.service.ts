@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Task, task } from '../models/task';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +16,11 @@ export class TaskService {
         const todos = await response.json();
 
         let task: Task;
-        task.total = todos.total;
+        // task.total = todos.total;
         for (let i = 0; i < todos.total; i++){
-
 
         }
 
-        // setTasks((prev) => [...prev, ...todos.todos]);
       } catch (error) {
         console.log(error);
       }

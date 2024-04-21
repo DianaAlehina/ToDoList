@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { routes } from '../../app.routes';
+import { AuthService } from '../../services/auth.service'
+import { Router } from '@angular/router';
+import { User } from '../../models/user';
+
 
 @Component({
   selector: 'app-authorization',
@@ -17,57 +21,31 @@ export class AuthorizationComponent implements OnInit{
   password = '9uQFF1Lh';
   token = '';
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
   }
 
   ngOnInit() {
+    let token= localStorage.getItem("token");
+    if (!!token) {
+      AuthService.getUserThroughToken(token)
+        .then(user => this.router.navigate(['todo/' + user.id]))
+    }
   }
-
-  // const navigateToRegister = () => {
-  //   routes.push("/register");
-  // }
 
   onSubmit(){
     // login and password заполнены, пытаемся авторизоваться
-    if (this.login && this.password){
+    if (this.login && this.password) {
       //TODO submit
-
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-      headers.append('Accept', 'application/json');
-      headers.append('Origin','http://localhost:3000');
-
-      fetch('https://dummyjson.com/auth/login', {
-        mode: 'cors',
-        // credentials: 'include',
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({
-          username: this.login,
-          password: this.password,
-          expiresInMins: 60, // optional, defaults to 60
-        })
-      })
-        .then(res => res.json())
-        .then((res) => {
-          if (res?.message) {
-            alert('Login or password entered incorrectly!')
-          } else if (res.token) {
-            localStorage.setItem("token", res.token);
-            console.log(`You are authorized as ${this.login} with password ${this.password}`)
-            console.log(res)
-
-            // saveToken(res.token).then(() => {
-            //   router.push("/list");
-            // });
+      AuthService.getUserThroughLogin(this.login, this.password)
+        .then(user => {
+          if (user.id != -1) {
+            this.router.navigate(['todo/' + user.id])
           }
         })
-        .catch((error) => {
-          console.error('Error during authentication', error);
-        })
-
-      return;
+    } else {
+      alert('Login and password are required fields!!!')
     }
-    alert('Login and password are required fields!!!')
   }
 }
