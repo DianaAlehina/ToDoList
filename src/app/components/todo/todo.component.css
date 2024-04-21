@@ -1,0 +1,143 @@
+.green{
+  width: 340px;
+  height: 1024px;
+
+  position: relative;
+  left: 20%;
+  transform: translate(-20%, 0);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  background: #3FEECF1A;
+}
+
+/*.container{*/
+/*  width: 338px;*/
+/*  !*height: Hug (572.5px)px;*!*/
+/*  top: 52px;*/
+/*  left: 300px;*/
+/*  gap: 40px;*/
+
+/*  !*display: flex;*!*/
+/*  !*grid-template-columns: 100px 100px 100px;*!*/
+/*  !*grid-template-rows: 50px 50px;*!*/
+/*}*/
+
+.profil{
+  width: 267px;
+  max-height: 158px;
+  padding: 28px 30px 28px 30px;
+  gap: 10px;
+  border-radius: 16px;
+  background: #FFFFFF;
+}
+
+.bttn{
+  /*width: Hug (191px)px;*/
+  /*height: Hug (75.5px)px;*/
+  /*gap: 38px;*/
+  /*display: grid;*/
+}
+
+input{
+  width: 107px;
+  height: 22px;
+  padding: 16px 80px 16px 80px;
+  gap: 10px;
+  border-radius: 12px;
+
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  border: 1px solid #848484;
+  background: #FFFFFF;
+}
+
+
+/*кнопки обычные*/
+button{
+  width: 267px;
+  height: 56px;
+  padding: 16px 80px 16px 80px;
+  gap: 10px;
+  border-radius: 12px;
+
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.add{
+  background: #3FEECF;
+}
+
+.logout{
+  background: #FF5E48F2;
+}
+
+
+
+.mini{
+  width: 34px;
+  height: 32px;
+  padding: 8px 6px 8px 6px;
+  gap: 10px;
+  border-radius: 4px;
+}
+
+p{
+  font-family: Inter, monospace;
+  text-align: center;
+  margin: 0;
+  top: 0;
+  color: #000000;
+}
+
+.toDoAppText {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 58px;
+}
+
+.title1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 29px;
+}
+
+.text {
+  text-align: left;
+
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.textButton{
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.mini{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.bttn{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+.minibtn{
+  width: 34px;
+  height: 32px;
+  padding: 6px;
+  gap: 10px;
+  border-radius: 4px;
+  background: #3FEECF;
+}

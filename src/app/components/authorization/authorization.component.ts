@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { routes } from '../app.routes';
+import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-authorization',
