@@ -1,8 +1,14 @@
-<p class="header">Authorization</p>
-
-<p class="text">Login</p>
-<input type="text" name="login" [value] = "login">
-
-<p class="text">Password</p>
-<input type="password" name="password" [value] = "password">
-<input type="button" value = "Login">
+<form action="#" (ngSubmit)="onSubmit()">
+    <p class="headerAuth">Authorization</p>
+    <div class="item2">
+      <p class="text">Login</p>
+      <input [(ngModel)]="login" type="text" name="login">
+    </div>
+    <div class="item2">
+      <p class="text">Password</p>
+      <input [(ngModel)]="password" type="text" name="password">
+    </div>
+    <button type="submit">
+      <p class="text">Login</p>
+    </button>
+</form>
