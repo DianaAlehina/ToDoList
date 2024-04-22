@@ -8,7 +8,7 @@ export class AuthService {
 
   constructor() { }
 
-  static async getUserThroughToken (token: string){
+  static async getUserThroughToken (token: string): Promise<User>{
     try{
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -22,12 +22,19 @@ export class AuthService {
         headers: headers,
       });
       const resJSON = await result.json();
-      console.log('Auth Through Token: ' + localStorage.getItem("token"));
-      return resJSON;
 
+      if (resJSON?.message) {
+        alert('Login or password entered incorrectly!')
+        return createUser('')
+      } else {
+        console.log('Auth Through Token: ' + localStorage.getItem("token"));
+        console.log(resJSON)
+        return createUser(resJSON)
+      }
     } catch (error){
       console.error('Error during authentication', error);
     }
+    return createUser('')
   }
 
   static async getUserThroughLogin (login: string, password: string): Promise<User>{
@@ -45,7 +52,7 @@ export class AuthService {
         body: JSON.stringify({
           username: login,
           password: password,
-          expiresInMins: 60, // optional, defaults to 60
+          expiresInMins: 10, // optional, defaults to 60
         })
       })
 
@@ -56,6 +63,8 @@ export class AuthService {
       } else if (resJSON.token) {
         localStorage.setItem("token", resJSON.token);
         console.log(`You are authorized as ${login} with password ${password}`)
+        console.log(createUser(resJSON))
+
         return createUser(resJSON)
         // console.log(resJSON)
       }

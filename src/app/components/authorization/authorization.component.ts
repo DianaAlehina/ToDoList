@@ -30,7 +30,11 @@ export class AuthorizationComponent implements OnInit{
     let token= localStorage.getItem("token");
     if (!!token) {
       AuthService.getUserThroughToken(token)
-        .then(user => this.router.navigate(['todo/' + user.id]))
+        .then(user => {
+          if (user.id != -1) {
+            this.router.navigate(['todo/' + user.id])
+          }
+        })
     }
   }
 

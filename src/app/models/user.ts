@@ -10,8 +10,8 @@ export interface User {
 
 export function createUser(userAPI: any): User {
 
-  if (userAPI){
-    return {
+  if (!!userAPI){
+    let user: User = {
       id: userAPI.id,
       username: userAPI.username,
       email: userAPI.email,
@@ -19,8 +19,10 @@ export function createUser(userAPI: any): User {
       lastName: userAPI.lastName,
       image: userAPI.image,
       token: userAPI.token
-    };
+    }
+    return user
   }
+
   return {
     id: -1,
     username: '',
@@ -30,5 +32,7 @@ export function createUser(userAPI: any): User {
     image: '',
     token: '',
   };
-
 }
+
+
+

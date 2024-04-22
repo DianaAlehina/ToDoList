@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Task } from '../models/task';
+import { ITask } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +8,34 @@ export class TaskService {
 
   constructor() { }
 
-  async getTasks(userId: number) {
-      try {
-        const response = await fetch(
-          `https://dummyjson.com/todos/user/${userId}`
-        );
-        const todos = await response.json();
+  static async getTasks (userId: number) {
+    try{
+      let headers = new Headers();
+      // headers.append('Content-Type', 'application/json');
+      // headers.append('Accept', 'application/json');
+      // headers.append('Origin','http://localhost:3000');
 
-        let task: Task;
-        // task.total = todos.total;
-        for (let i = 0; i < todos.total; i++){
+      const result = await fetch(`https://dummyjson.com/todos/user/${userId}`, {
+      });
+      const todosJSON = await result.json();
+      console.log(todosJSON)
+      //
+      // let task: Task;
+      // // task.total = todos.total;
+      // for (let i = 0; i < todos.total; i++){
+      //
+      // }
 
-        }
-
-      } catch (error) {
-        console.log(error);
+      if (todosJSON?.message) {
+        return
+      } else {
+        return
       }
+    } catch (error){
+      console.error('Error getTasks', error);
     }
+    return
+  }
       // id: number,
       //   todo: string,
       //   completed: boolean,
