@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ITask } from '../models/task';
+import { Task, ITask } from '../models/task';
+import { Todo, ITodo } from '../models/todo';
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +20,24 @@ export class TaskService {
       });
       const todosJSON = await result.json();
       console.log(todosJSON)
-      //
-      // let task: Task;
-      // // task.total = todos.total;
-      // for (let i = 0; i < todos.total; i++){
-      //
-      // }
 
       if (todosJSON?.message) {
         return
       } else {
-        return
+        console.log('task')
+        let todos: [Todo];
+        for (let i = 0; i < todosJSON.total; i++) {
+          let tdJSON = todosJSON.todos[i]
+          let todo =
+            new Todo(
+              tdJSON.id,
+              tdJSON.todo,
+              tdJSON.completed,
+              tdJSON.userId)
+          todos.push(todo)
+        }
+        let task = new Task(todos, todosJSON.total)
+        console.log(task)
       }
     } catch (error){
       console.error('Error getTasks', error);

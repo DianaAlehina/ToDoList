@@ -5,7 +5,7 @@ export interface ITodo{
   userId: number
 }
 
-class Todo implements ITodo {
+export class Todo implements ITodo {
   id: number
   todo: string
   completed: boolean

@@ -1,17 +1,17 @@
-import { ITodo } from './todo';
+import { Todo, ITodo } from './todo';
 
 export interface ITask {
-  todos: ITodo[],
+  todos: [ITodo],
   total: number,
   // skip: number,
   // limit: number
 }
 
-class Task implements ITask {
-  todos: [ITodo]
+export class Task implements ITask {
+  todos: [Todo]
   total: number
 
-  constructor(taskTodos: [ITodo],
+  constructor(taskTodos: [Todo],
               taskTotal: number) {
     this.todos = taskTodos
     this.total = taskTotal

@@ -33,6 +33,3 @@ export function createUser(userAPI: any): User {
     token: '',
   };
 }
-
-
-
