@@ -4,6 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { TaskService } from '../../services/task.service'
 import { Router } from '@angular/router';
 import { routes } from '../../app.routes';
+import { createUser, User } from '../../models/user';
+import { Todo } from '../../models/todo';
 
 
 @Component({
@@ -16,6 +18,10 @@ import { routes } from '../../app.routes';
   styleUrl: './todo.component.css'
 })
 export class TodoComponent {
+  userID: number = 1
+  newTask: string = ''
+  todo: Todo = new Todo (-1, '', false, this.userID)
+  user: User = createUser('')
 
   constructor(
     private router: Router,
@@ -23,12 +29,36 @@ export class TodoComponent {
   }
 
   ngOnInit() {
-    TaskService.getTasks(1);
+    let token= localStorage.getItem("token");
+    if (!!token) {
+      AuthService.getUserThroughToken(token)
+        .then(user => {
+          if (user.id != -1) {
+            this.router.navigate(['todo/' + user.id])
+            // this.user = user
+            // console.log('fkfkfkkfkf ' + this.user)
+          } else {
+            this.router.navigate(['/'])
+          }
+        })
+        TaskService.getTasks(this.user.id);
+    }
   }
 
-  async logOut(){
-    // localStorage.setItem("token", '')
-    console.log('Auth Through Token: ' + localStorage.getItem("token"));
-    // this.router.navigate(['/'])
+  logOut(){
+    localStorage.setItem("token", '')
+    this.router.navigate(['/'])
+  }
+
+  addTaskForm(){
+    TaskService.addTask(this.newTask, this.userID).then(res => console.log(res))
+  }
+
+  updateTaskForm(){
+    TaskService.updateTask(this.todo).then(res => console.log(res))
+  }
+
+  deleteTaskForm(){
+    TaskService.deleteTask(this.todo.id).then(res => console.log(res))
   }
 }

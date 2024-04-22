@@ -24,7 +24,7 @@ export class AuthService {
       const resJSON = await result.json();
 
       if (resJSON?.message) {
-        alert('Login or password entered incorrectly!')
+        localStorage.setItem("token", '');
         return createUser('')
       } else {
         console.log('Auth Through Token: ' + localStorage.getItem("token"));
@@ -32,7 +32,7 @@ export class AuthService {
         return createUser(resJSON)
       }
     } catch (error){
-      console.error('Error during authentication', error);
+      console.error('Error during authentication', error)
     }
     return createUser('')
   }
@@ -52,7 +52,7 @@ export class AuthService {
         body: JSON.stringify({
           username: login,
           password: password,
-          expiresInMins: 10, // optional, defaults to 60
+          expiresInMins: 30, // optional, defaults to 60
         })
       })
 
@@ -66,9 +66,7 @@ export class AuthService {
         console.log(createUser(resJSON))
 
         return createUser(resJSON)
-        // console.log(resJSON)
       }
-
     } catch (error){
       console.error('Error during authentication', error);
     }

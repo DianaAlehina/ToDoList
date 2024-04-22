@@ -9,9 +9,9 @@ export class TaskService {
 
   constructor() { }
 
-  static async getTasks (userId: number): Promise<Task> {
+  static async getTasks (userID: number): Promise<Task> {
     try{
-      const result = await fetch(`https://dummyjson.com/todos/user/${userId}`, {
+      const result = await fetch(`https://dummyjson.com/todos/user/${userID}`, {
       });
       const todosJSON = await result.json();
 
@@ -38,19 +38,69 @@ export class TaskService {
     return new Task([], 0)
   }
 
-  // getTask(id: number){
-  //
-  // }
-  //
-  // createTask(){
-  //
-  // }
-  //
-  // updateTask(id: number){
-  //
-  // }
-  //
-  // deleteTask(id: number){
-  //
-  // }
+  static async addTask (todo: string, userID: number): Promise<Task> {
+    try {
+      let body = JSON.stringify({
+        todo: todo,
+        completed: false,
+        userId: userID,
+      })
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      const result = await fetch('https://dummyjson.com/todos/add', {
+        method: 'POST',
+        headers: headers,
+        body: body
+      })
+
+      const resultJSON = await result.json()
+      console.log(resultJSON)
+
+      return new Task([], 0)
+    } catch (error){
+      console.error('Error createTask', error);
+    }
+    return new Task([], 0)
+  }
+
+  static async updateTask (todo: Todo): Promise<Task> {
+    try {
+      let body = JSON.stringify({
+        todo: todo.todo,
+        completed: todo.completed,
+      })
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      const result = await fetch(`https://dummyjson.com/todos/${todo.id}`, {
+        method: 'PUT', /* or PATCH */
+        headers: headers,
+        body: body
+      })
+
+      const resultJSON = await result.json()
+      console.log(resultJSON)
+
+      return new Task([], 0)
+    } catch (error){
+      console.error('Error createTask', error);
+    }
+    return new Task([], 0)
+  }
+
+  static async deleteTask (todoID: number): Promise<Task> {
+    try {
+      const result = await fetch(`https://dummyjson.com/todos/${todoID}`, {
+        method: 'DELETE',
+      })
+      const resultJSON = await result.json()
+      console.log(resultJSON)
+
+      return new Task([], 0)
+    } catch (error){
+      console.error('Error createTask', error);
+    }
+    return new Task([], 0)
+  }
 }
