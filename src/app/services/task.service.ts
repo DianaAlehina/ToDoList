@@ -47,6 +47,7 @@ export class TaskService {
       })
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
+      headers.append('Origin','http://localhost:3000');
 
       const result = await fetch('https://dummyjson.com/todos/add', {
         method: 'POST',
@@ -72,6 +73,7 @@ export class TaskService {
       })
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
+      headers.append('Origin','http://localhost:3000');
 
       const result = await fetch(`https://dummyjson.com/todos/${todo.id}`, {
         method: 'PUT', /* or PATCH */

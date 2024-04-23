@@ -19,7 +19,7 @@ import { Todo } from '../../models/todo';
 })
 export class TodoComponent {
   userID: number = 1
-  newTask: string = ''
+  newTask: string = 'Buy milk'
   todo: Todo = new Todo (-1, '', false, this.userID)
   user: User = createUser('')
 
@@ -35,8 +35,8 @@ export class TodoComponent {
         .then(user => {
           if (user.id != -1) {
             this.router.navigate(['todo/' + user.id])
-            // this.user = user
-            // console.log('fkfkfkkfkf ' + this.user)
+            this.user = user
+            console.log(this.user)
           } else {
             this.router.navigate(['/'])
           }
