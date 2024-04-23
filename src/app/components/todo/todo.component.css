@@ -1,11 +1,12 @@
 .form{
+  height: 100vh;
   display: grid;
   grid-template-columns: auto auto;
 }
 
 .green {
   width: 340px;
-  /*height: 100vh;*/
+  height: 100%;
   left: 40%;
   transform: translate(-10%, 0);
   position: relative;
@@ -284,38 +285,21 @@ p {
   font-family: Inter, serif;
   font-size: 40px;
   font-weight: 700;
-  line-height: 48.41px;
-  /*text-align: center;*/
+  line-height: 49px;
+  transform: translate(-18%, 0%);
 }
 
-
-/*.numbering {*/
-/*  width: 12px;*/
-/*  height: 19px;*/
-/*  gap: 0;*/
-
-/*  font-family: Inter, serif;*/
-/*  font-size: 16px;*/
-/*  font-weight: 400;*/
-/*  line-height: 19.36px;*/
-/*  text-align: left;*/
-
-/*  position: relative;*/
-/*  left: 50%;*/
-/*  transform: translate(-50%, 0);*/
-/*}*/
-
 .task {
-  width: 348px;
+  width: 242px;
   height: 50px;
-  padding: 0 16px 0 16px;
+  padding: 0 90px 0 16px;
   gap: 0;
   border-radius: 12px;
-  border: 1px;
-  justify: space-between;
+  /*justify: space-between;*/
 
-  /*position: relative;*/
-  /*left: 50%;*/
+  position: relative;
+  left: 1%;
+  right: 13%;
   /*transform: translate(-50%, 0);*/
 
   font-family: Inter, serif;
@@ -374,6 +358,7 @@ p {
   height: 24px;
   padding: 3px 5px 3px 5px;
   gap: 0;
+  border: none;
 
   background: #FFFFFF;
 
@@ -388,23 +373,42 @@ p {
   }
 }
 
+.list {
+  margin-top: 57px;
+}
+
 .miniButtonInput {
   position: relative;
-  right: 12%;
-  transform: translate(0%, 27%);
+  transform: translate(-115%, 27%);
 
   display: flex;
   gap: 6px;
 }
 
 .inputWithButton {
+  position: relative;
+  transform: translate(0%, 55%);
+
   display: flex;
+  gap: 16px;
 }
 
-/*.list {*/
-/*  width: 378px;*/
-/*  !*height: Hug (266px)px;*!*/
-/*  top: 175px;*/
-/*  left: 710px;*/
-/*  gap: 22px;*/
-/*}*/
+
+.numberDiv {
+  position: relative;
+  transform: translate(0%, 33%);
+}
+
+.number {
+  font-family: Inter, serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.36px;
+  text-align: left;
+}
+
+ol {
+
+}
+
+

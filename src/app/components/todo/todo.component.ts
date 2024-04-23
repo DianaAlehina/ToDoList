@@ -6,22 +6,26 @@ import { Router } from '@angular/router';
 import { routes } from '../../app.routes';
 import { createUser, User } from '../../models/user';
 import { Todo } from '../../models/todo';
+import { Task } from '../../models/task';
+import { NgForOf, NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'app-todo',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgForOf,
+    NgIf
   ],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css'
 })
 export class TodoComponent {
-  userID: number = 1
   newTask: string = 'Buy milk'
-  todo: Todo = new Todo (-1, '', false, this.userID)
+  todo: Todo = new Todo (-1, '', false, -1)
   user: User = createUser('')
+  task: Task = new Task([], 0)
 
   constructor(
     private router: Router,
@@ -29,7 +33,7 @@ export class TodoComponent {
   }
 
   ngOnInit() {
-    let token= localStorage.getItem("token");
+    let token = localStorage.getItem("token");
     if (!!token) {
       AuthService.getUserThroughToken(token)
         .then(user => {
@@ -41,7 +45,8 @@ export class TodoComponent {
             this.router.navigate(['/'])
           }
         })
-        TaskService.getTasks(this.user.id);
+
+        this.getTasksForm()
     }
   }
 
@@ -50,15 +55,38 @@ export class TodoComponent {
     this.router.navigate(['/'])
   }
 
+  getTasksForm(){
+    TaskService.getTasks(1)
+      .then(task => {
+        this.task = task
+        console.log(this.task)
+      });
+  }
+
   addTaskForm(){
-    TaskService.addTask(this.newTask, this.userID).then(res => console.log(res))
+    TaskService.addTask(this.newTask, this.user.id)
+      .then(todo => {
+        this.task.total += 1;
+        this.task.todos.push(todo)
+        console.log(this.task)
+      })
   }
 
   updateTaskForm(){
-    TaskService.updateTask(this.todo).then(res => console.log(res))
+    TaskService.updateTask(this.todo)
+      .then(res => console.log(res))
   }
 
   deleteTaskForm(){
-    TaskService.deleteTask(this.todo.id).then(res => console.log(res))
+    TaskService.deleteTask(this.todo.id)
+      .then(res => console.log(res))
+  }
+
+  sortByID (){
+
+  }
+
+  sortByValue (){
+
   }
 }

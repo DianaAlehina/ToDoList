@@ -29,7 +29,7 @@ export class TaskService {
         }
 
         let task = new Task(todos, todosJSON.total)
-        console.log(task)
+        // console.log(task)
         return task
       }
     } catch (error){
@@ -38,7 +38,7 @@ export class TaskService {
     return new Task([], 0)
   }
 
-  static async addTask (todo: string, userID: number): Promise<Task> {
+  static async addTask (todo: string, userID: number): Promise<Todo> {
     try {
       let body = JSON.stringify({
         todo: todo,
@@ -56,13 +56,13 @@ export class TaskService {
       })
 
       const resultJSON = await result.json()
-      console.log(resultJSON)
+      // console.log(resultJSON)
 
-      return new Task([], 0)
+      return new Todo(resultJSON.id, resultJSON.todo, resultJSON.completed, resultJSON.userId)
     } catch (error){
       console.error('Error createTask', error);
+      return new Todo(-1, '', false, -1)
     }
-    return new Task([], 0)
   }
 
   static async updateTask (todo: Todo): Promise<Task> {
