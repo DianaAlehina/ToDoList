@@ -65,7 +65,7 @@ export class TaskService {
     }
   }
 
-  static async updateTask (todo: Todo): Promise<Task> {
+  static async updateTask (todo: Todo): Promise<Todo> {
     try {
       let body = JSON.stringify({
         todo: todo.todo,
@@ -84,14 +84,14 @@ export class TaskService {
       const resultJSON = await result.json()
       console.log(resultJSON)
 
-      return new Task([], 0)
+      return new Todo(resultJSON.id, resultJSON.todo, resultJSON.completed, resultJSON.userId)
     } catch (error){
       console.error('Error createTask', error);
     }
-    return new Task([], 0)
+    return new Todo(-1, '', false, -1)
   }
 
-  static async deleteTask (todoID: number): Promise<Task> {
+  static async deleteTask (todoID: number): Promise<Todo> {
     try {
       const result = await fetch(`https://dummyjson.com/todos/${todoID}`, {
         method: 'DELETE',
@@ -99,10 +99,10 @@ export class TaskService {
       const resultJSON = await result.json()
       console.log(resultJSON)
 
-      return new Task([], 0)
+      return new Todo(-1, '', false, -1)
     } catch (error){
       console.error('Error createTask', error);
     }
-    return new Task([], 0)
+    return new Todo(-1, '', false, -1)
   }
 }

@@ -70,11 +70,17 @@ export class TodoComponent {
         this.task.todos.push(todo)
         console.log(this.task)
       })
+    this.newTask = ''
+
   }
 
   updateTaskForm(){
-    TaskService.updateTask(this.todo)
-      .then(res => console.log(res))
+    console.log(this.task.todos[0])
+    TaskService.updateTask(this.task.todos[0])
+      .then(todo => {
+          this.task.todos[0] = todo;
+          console.log(todo)
+      })
   }
 
   deleteTaskForm(){
@@ -83,10 +89,13 @@ export class TodoComponent {
   }
 
   sortByID (){
-
+    this.task.todos.sort((a, b) => a.id < b.id ? 1 : -1);
+    console.log(this.task)
   }
 
   sortByValue (){
-
+    this.task.todos.sort((a, b) => a.id < b.id ? 1 : -1);
+    this.task.todos.sort((a, b) => a.completed > b.completed ? 1 : -1);
+    console.log(this.task)
   }
 }
