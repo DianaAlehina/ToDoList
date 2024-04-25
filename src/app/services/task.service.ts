@@ -24,10 +24,11 @@ export class TaskService {
               tdJSON.id,
               tdJSON.todo,
               tdJSON.completed,
-              tdJSON.userId)
+              tdJSON.userId,
+              false)
           todos.push(todo)
         }
-
+        todos = todos.filter((todo) => todo.isDeleted != true);
         let task = new Task(todos, todosJSON.total)
         // console.log(task)
         return task
@@ -58,10 +59,10 @@ export class TaskService {
       const resultJSON = await result.json()
       // console.log(resultJSON)
 
-      return new Todo(resultJSON.id, resultJSON.todo, resultJSON.completed, resultJSON.userId)
+      return new Todo(resultJSON.id, resultJSON.todo, resultJSON.completed, resultJSON.userId, false)
     } catch (error){
       console.error('Error createTask', error);
-      return new Todo(-1, '', false, -1)
+      return new Todo(-1, '', false, -1, false)
     }
   }
 
@@ -82,13 +83,13 @@ export class TaskService {
       })
 
       const resultJSON = await result.json()
-      console.log(resultJSON)
+      // console.log(resultJSON)
 
-      return new Todo(resultJSON.id, resultJSON.todo, resultJSON.completed, resultJSON.userId)
+      return new Todo(resultJSON.id, resultJSON.todo, resultJSON.completed, resultJSON.userId, false)
     } catch (error){
       console.error('Error createTask', error);
     }
-    return new Todo(-1, '', false, -1)
+    return new Todo(-1, '', false, -1, false)
   }
 
   static async deleteTask (todoID: number): Promise<Todo> {
@@ -97,12 +98,12 @@ export class TaskService {
         method: 'DELETE',
       })
       const resultJSON = await result.json()
-      console.log(resultJSON)
+      // console.log(resultJSON)
 
-      return new Todo(-1, '', false, -1)
+      return new Todo(resultJSON.id, resultJSON.todo, resultJSON.completed, resultJSON.userId, resultJSON.isDeleted)
     } catch (error){
       console.error('Error createTask', error);
     }
-    return new Todo(-1, '', false, -1)
+    return new Todo(-1, '', false, -1, false)
   }
 }

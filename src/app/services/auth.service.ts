@@ -28,7 +28,7 @@ export class AuthService {
         return createUser('')
       } else {
         console.log('Auth Through Token: ' + localStorage.getItem("token"));
-        console.log(resJSON)
+        // console.log(resJSON)
         return createUser(resJSON)
       }
     } catch (error){

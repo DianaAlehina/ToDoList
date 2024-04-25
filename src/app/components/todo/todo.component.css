@@ -105,8 +105,25 @@
 
   border: 1px solid #848484;
   background: #FFFFFF;
+  display: block;
+
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+input:invalid {
+  border: 1px solid red;
+}
+
+input:hover {
+  outline: 0;
+  border-color: #bdbdbd;
+}
+
+input:focus {
+  outline: 0;
+  border-color: #bdbdbd;
+  box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
 
 /*кнопки обычные*/
 .add {
@@ -309,7 +326,6 @@ p {
   text-align: left;
 
   border: 1px solid #848484;
-  background: #FFFFFF;
 }
 
 .miniButtonInputUpdate {
@@ -406,9 +422,3 @@ p {
   line-height: 19.36px;
   text-align: left;
 }
-
-ol {
-
-}
-
-

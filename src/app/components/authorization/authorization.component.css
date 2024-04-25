@@ -44,7 +44,24 @@ input {
   font-size: 16px;
   font-weight: 100;
   line-height: 14px;
+
+  &:invalid {
+    border: 1px solid red;
+  }
+
+  &:hover {
+    outline: 0;
+    border-color: #bdbdbd;
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: #bdbdbd;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+  }
 }
+
+
 
 p {
   font-family: Inter, monospace;

@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, input } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { TaskService } from '../../services/task.service'
 import { Router } from '@angular/router';
-import { routes } from '../../app.routes';
 import { createUser, User } from '../../models/user';
-import { Todo } from '../../models/todo';
 import { Task } from '../../models/task';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf, NgOptimizedImage } from '@angular/common';
 
 
 @Component({
@@ -16,14 +14,15 @@ import { NgForOf, NgIf } from '@angular/common';
   imports: [
     ReactiveFormsModule,
     NgForOf,
-    NgIf
+    NgIf,
+    NgOptimizedImage,
+    FormsModule
   ],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css'
 })
 export class TodoComponent {
-  newTask: string = 'Buy milk'
-  todo: Todo = new Todo (-1, '', false, -1)
+  newTask: string = ''
   user: User = createUser('')
   task: Task = new Task([], 0)
 
@@ -41,12 +40,11 @@ export class TodoComponent {
             this.router.navigate(['todo/' + user.id])
             this.user = user
             console.log(this.user)
+            this.getTasksForm()
           } else {
             this.router.navigate(['/'])
           }
         })
-
-        this.getTasksForm()
     }
   }
 
@@ -56,7 +54,7 @@ export class TodoComponent {
   }
 
   getTasksForm(){
-    TaskService.getTasks(1)
+    TaskService.getTasks(this.user.id)
       .then(task => {
         this.task = task
         console.log(this.task)
@@ -64,28 +62,42 @@ export class TodoComponent {
   }
 
   addTaskForm(){
-    TaskService.addTask(this.newTask, this.user.id)
-      .then(todo => {
-        this.task.total += 1;
-        this.task.todos.push(todo)
-        console.log(this.task)
-      })
-    this.newTask = ''
-
+    if (this.newTask.length > 4){
+      TaskService.addTask(this.newTask, this.user.id)
+        .then(todo => {
+          this.task.total += 1
+          this.task.todos.push(todo)
+          console.log(this.task)
+        })
+      this.newTask = ''
+    }
   }
 
-  updateTaskForm(){
-    console.log(this.task.todos[0])
-    TaskService.updateTask(this.task.todos[0])
-      .then(todo => {
-          this.task.todos[0] = todo;
+  updateTodoForm(i: number){
+    if (this.task.todos[i].todo.length > 4) {
+      TaskService.updateTask(this.task.todos[i])
+        .then(todo => {
+          this.task.todos[i] = todo
           console.log(todo)
+        })
+    }
+  }
+
+  updateCompletedForm(i: number){
+    this.task.todos[i].completed = !this.task.todos[i].completed
+    TaskService.updateTask(this.task.todos[i])
+      .then(todo => {
+        console.log(todo)
       })
   }
 
-  deleteTaskForm(){
-    TaskService.deleteTask(this.todo.id)
-      .then(res => console.log(res))
+  deleteTaskForm(i: number){
+    TaskService.deleteTask(this.task.todos[i].id)
+      .then(todo => {
+        this.task.todos[i] = todo
+        this.task.todos = this.task.todos.filter((todo) => !todo.isDeleted)
+        console.log(todo)
+      })
   }
 
   sortByID (){
