@@ -15,8 +15,8 @@ import { Router } from '@angular/router';
 })
 
 export class AuthorizationComponent implements OnInit{
-  login = `atuny0`;
-  password = '9uQFF1Lh';
+  login = ''; //atuny0
+  password = ''; //9uQFF1Lh
   token = '';
 
   constructor(
