@@ -110,19 +110,19 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-input:invalid {
-  border: 1px solid red;
-}
-
 input:hover {
   outline: 0;
-  border-color: #bdbdbd;
+  border: 1px solid #bdbdbd;
 }
 
 input:focus {
   outline: 0;
-  border-color: #bdbdbd;
+  border: 1px solid  #bdbdbd;
   box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+input:invalid {
+  border: 2px solid red;
 }
 
 /*кнопки обычные*/

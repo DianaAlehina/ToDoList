@@ -62,6 +62,7 @@ export class AuthService {
         alert('Login or password entered incorrectly!')
       } else if (resJSON.token) {
         localStorage.setItem("token", resJSON.token);
+        localStorage.setItem("operating_mode", 'online');
         console.log(`You are authorized as ${login} with password ${password}`)
         console.log(createUser(resJSON))
 
