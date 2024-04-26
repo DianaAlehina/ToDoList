@@ -85,7 +85,7 @@
     <ol *ngFor="let todo of task.todos; index as i">
       <div class="inputWithButton">
         <div class="numberDiv"><p class="number">{{i+1}}.</p></div>
-        <input [(ngModel)]="todo.todo" type="text" class="task" name="taskTodo" minlength="4"/>
+        <input [(ngModel)]="todo.todo" ng ="" type="text" class="task" name="taskTodo" minlength="4"/>
         <div class="miniButtonInput">
           <button type="button" class="miniButtonInputUpdate" (click)="updateTodoForm(i)" >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -7,7 +7,8 @@ import { createUser, User } from '../../models/user';
 import { Task } from '../../models/task';
 import { NgForOf, NgIf, NgOptimizedImage } from '@angular/common';
 import { Todo } from '../../models/todo';
-import { filter } from 'rxjs';
+import { expand, filter } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
@@ -21,7 +22,8 @@ import { filter } from 'rxjs';
     FormsModule
   ],
   templateUrl: './todo.component.html',
-  styleUrl: './todo.component.css'
+  styleUrl: './todo.component.css',
+  animations: []
 })
 export class TodoComponent {
   newTask: string = ''
@@ -105,11 +107,12 @@ export class TodoComponent {
       if (this.task.todos[i].todo.length >= 4) {
         TaskService.updateTask(this.task.todos[i])
           .then(todo => {
-            this.task.todos[i] = todo
-            console.log(todo)
+            if (todo.id != undefined){
+              this.task.todos[i] = todo
+            }
+            // console.log(todo)
           })
       }
-      this.getTasksForm()
     } else {
       localStorage.setItem("task", JSON.stringify(this.task))
       console.log(localStorage.getItem("task"))
@@ -121,7 +124,7 @@ export class TodoComponent {
     if (this.operating_mode == 'online') {
       TaskService.updateTask(this.task.todos[i])
         .then(todo => {
-          console.log(todo)
+          // console.log(todo)
         })
     } else {
       localStorage.setItem("task", JSON.stringify(this.task))
@@ -133,7 +136,7 @@ export class TodoComponent {
     if (this.operating_mode == 'online') {
       TaskService.deleteTask(this.task.todos[i].id)
         .then(todo => {
-          this.task.todos[i] = todo
+          this.task.todos[i].isDeleted = true
           this.task.todos = this.task.todos.filter((todo) => !todo.isDeleted)
           console.log(todo)
         })
@@ -169,3 +172,5 @@ export class TodoComponent {
     console.log(this.task)
   }
 }
+
+
