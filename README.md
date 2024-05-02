@@ -14,22 +14,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-## Доп. информация
+## Дополнительняя информация
 Проект был реализован, как тестовое задание Angular в Совкомбанк.
 
-Сделать приложение todo-list с авторизацией пользователя. В качестве сервера нужно использовать https://dummyjson.com/docs. Разделы auth и todos. Ссылка на дизайн в figma
+Сделать приложение todo-list с авторизацией пользователя. В качестве сервера нужно использовать https://dummyjson.com/docs. Разделы auth и todos. Ссылка на дизайн в figma: https://www.figma.com/file/mvB7S8vo8dSYjg4RtjwCBv/Angular-test?type=design&node-id=0-1&mode=design&t=9y175v6kTX3lO5OM-0
 # Требования:
 1. Приложение состоит из двух страниц: авторизация и список задач. Список задач должен быть доступен только для авторизованного пользователя.
 2. При старте приложения, angular должен проверять есть ли token в local storage. При его наличии надо авторизовать по нему пользователя и при успешной авторизации, выводить его имя, фамилию и аватар.
